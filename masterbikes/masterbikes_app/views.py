@@ -9,8 +9,9 @@ def registro(request):
     if request.method == 'POST':
         form = RegistroForm(request.POST)
         if form.is_valid():
-            # Aquí guardas usuario, perfil, etc.
+            # guarda tu usuario, perfil, etc.
             return redirect('login')
     else:
         form = RegistroForm()
+
     return render(request, 'registro.html', {'form': form})

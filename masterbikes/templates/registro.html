@@ -1,0 +1,158 @@
+{% load static widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Registro</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Tus estilos -->
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
+  </head>
+  <body class="fondo_login">
+    <div class="container my-5">
+      <div class="card mx-auto shadow color_registro" style="max-width: 600px">
+        <div class="card-body">
+          <img
+                src="{% static 'img/masterbikes_logo.jpg' %}"
+                class="card-img-top mb-4 tamano_logo d-block mx-auto"
+                alt="masterbikes_logo"
+              />
+          <h3 class="card-title text-center mb-4">Registro</h3>
+
+          <form method="post" action="{% url 'registro' %}" novalidate>
+            {% csrf_token %} {# Errores globales #} 
+            {% if form.non_field_errors%}
+            <div class="alert alert-danger">
+              {% for err in form.non_field_errors %}
+              <div>{{ err }}</div>
+              {% endfor %}
+            </div>
+            {% endif %} 
+            {# Nombre y Apellido #}
+            <div class="row mb-3">
+              <div class="col-md-6">
+                {{ form.nombre.label_tag }} 
+                {% if form.nombre.errors %} 
+                  {{ form.nombre |add_class:"form-control is-invalid"|attr:"required"|attr:"placeholder:Ingrese nombre" }} 
+                  {% for err in form.nombre.errors %}
+                  <div class="invalid-feedback">{{ err }}</div>
+                  {% endfor %} 
+                {% else %} 
+                  {{ form.nombre |add_class:"form-control"|attr:"required"|attr:"placeholder:Ingrese nombre" }} 
+                {% endif %}
+              </div>
+              <div class="col-md-6">
+                {{ form.apellido.label_tag }} 
+                {% if form.apellido.errors %} 
+                  {{form.apellido |add_class:"form-control is-invalid"|attr:"required"|attr:"placeholder:Ingrese apellido" }} 
+                  {% for err in form.apellido.errors %}
+                  <div class="invalid-feedback">{{ err }}</div>
+                  {% endfor %} 
+                {% else %} 
+                  {{ form.apellido |add_class:"form-control"|attr:"required"|attr:"placeholder:Ingrese apellido" }} 
+                {% endif %}
+              </div>
+            </div>
+
+            {# Correo Electrónico #}
+            <div class="mb-3">
+              {{ form.email.label_tag }} 
+              {% if form.email.errors %} 
+                {{form.email |add_class:"form-control is-invalid"|attr:"required"|attr:"placeholder:Ingrese correo electrónico" }} 
+                {% for err in form.email.errors %}
+                <div class="invalid-feedback">{{ err }}</div>
+                {% endfor %} 
+              {% else %} 
+                {{ form.email |add_class:"form-control"|attr:"required"|attr:"placeholder:Ingrese correo electrónico" }}
+              {% endif %}
+            </div>
+
+            {# Contraseña #}
+            <div class="mb-3">
+              {{ form.password1.label_tag }} 
+              {% if form.password1.errors %} 
+                {{form.password1 |add_class:"form-control is-invalid"|attr:"required"|attr:"placeholder:Ingrese contraseña" }} 
+                {% for err in form.password1.errors %}
+                <div class="invalid-feedback">{{ err }}</div>
+                {% endfor %} 
+              {% else %} 
+                {{ form.password1|add_class:"form-control" |attr:"required"|attr:"placeholder:Ingrese contraseña" }} {% endif %}
+            </div>
+
+            {# Repetir Contraseña #}
+            <div class="mb-3">
+              {{ form.password2.label_tag }} 
+              {% if form.password2.errors %} 
+                {{form.password2 |add_class:"form-control is-invalid"|attr:"required" |attr:"placeholder:Repita contraseña" }} 
+                {% for err in form.password2.errors %}
+                <div class="invalid-feedback">{{ err }}</div>
+                {% endfor %} 
+                {% else %} 
+                {{ form.password2|add_class:"form-control" |attr:"required"|attr:"placeholder:Repita contraseña" }} 
+              {% endif %}
+            </div>
+
+            {# Fecha de Nacimiento #}
+            <div class="mb-3">
+              {{ form.fechaNacimiento.label_tag }} 
+              {% if form.fechaNacimiento.errors %} 
+                {{ form.fechaNacimiento|add_class:"form-control is-invalid" |attr:"required" }} 
+                {% for err in form.fechaNacimiento.errors %}
+                <div class="invalid-feedback">{{ err }}</div>
+                {% endfor %} 
+              {% else %} 
+                {{ form.fechaNacimiento|add_class:"form-control" |attr:"required" }} 
+              {% endif %}
+            </div>
+
+            {# Teléfono #}
+            <div class="mb-3">
+              {{ form.telefono.label_tag }} 
+              {% if form.telefono.errors %} 
+                {{form.telefono |add_class:"form-control is-invalid"|attr:"required" |attr:"placeholder:+56912345678" }} 
+                {% for err in form.telefono.errors %}
+                <div class="invalid-feedback">{{ err }}</div>
+                {% endfor %} 
+              {% else %} 
+                {{ form.telefono |add_class:"form-control"|attr:"required" |attr:"placeholder:+56912345678" }} 
+              {% endif %}
+            </div>
+
+            {# RUT #}
+            <div class="mb-3">
+              {{ form.rut.label_tag }} 
+              {% if form.rut.errors %} 
+                {{ form.rut|add_class:"form-control is-invalid" |attr:"required"|attr:"placeholder:12.345.678-9" }} 
+                {% for err in form.rut.errors %}
+                <div class="invalid-feedback">{{ err }}</div>
+                {% endfor %} 
+              {% else %} 
+                {{ form.rut |add_class:"form-control"|attr:"required" |attr:"placeholder:12.345.678-9" }} 
+              {% endif %}
+            </div>
+
+            <button type="submit" class="btn color_boton_verde w-100 text-white">
+              Registrarse
+            </button>
+          </form>
+
+          <p class="text-center text-muted mt-3">
+            ¿Ya tienes cuenta?
+            <a href="{% url 'login' %}">Ingresar aquí</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Validación externa -->
+    <script src="{% static 'js/validacion.js' %}"></script>
+  </body>
+</html>

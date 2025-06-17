@@ -10,3 +10,17 @@
 .color_registro {
   background-color: rgba(252, 250, 248, 255);
 }
+
+.form-control:invalid,
+.was-validated .form-control:invalid {
+  border-color: #dc3545;
+}
+
+.form-control {
+  height: calc(1.5em + 1rem + 2px);
+}
+
+.invalid-feedback {
+  font-size: 0.875em;
+  margin-top: 0.25rem;
+}

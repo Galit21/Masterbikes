@@ -3,6 +3,6 @@ from .views import login, registro
 
 urlpatterns = [
     path('*', login, name='login'),
-    path('login/', login, name='login'),
-    path('registro/', registro, name='registro'),
+    path('login', login, name='login'),
+    path('registro', registro, name='registro'),
 ]
