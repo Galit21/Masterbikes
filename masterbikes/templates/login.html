@@ -57,6 +57,14 @@
             </button>
           </div>
           <p class="text-center text-muted mt-4">
+            ¿Olvidó su contraseña?
+            <a
+              href="{% url 'recuperar_contraseña' %}"
+              class="text-decoration-none text-secondary"
+              >Recuperela aquí</a
+            >
+          </p> 
+          <p class="text-center text-muted mt-4">
             ¿No tienes una cuenta?
             <a href="{% url 'registro' %}" class="text-decoration-none"
               >Cree una aquí</a

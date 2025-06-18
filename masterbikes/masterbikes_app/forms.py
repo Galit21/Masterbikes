@@ -1,6 +1,7 @@
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password
+from .models import Usuarios
 
 class RegistroForm(forms.Form):
     nombre = forms.CharField(max_length=30)
@@ -22,3 +23,14 @@ class RegistroForm(forms.Form):
         if cleaned.get("password1") != cleaned.get("password2"):
             self.add_error("password2", "Las contraseñas no coinciden.")
         return cleaned
+    def save(self):
+        usuario = Usuarios.objects.create(
+            nombre=self.cleaned_data["nombre"],
+            apellido=self.cleaned_data["apellido"],
+            email=self.cleaned_data["email"],
+            contrasena=make_password(self.cleaned_data["password1"]),
+            fecha_nacimiento=self.cleaned_data["fechaNacimiento"],
+            telefono=self.cleaned_data["telefono"],
+            rut=self.cleaned_data["rut"],
+        )
+        return usuario
