@@ -1,18 +1,16 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import RegistroForm
-from .models import Usuarios
+from .models import Usuario, Producto
 
 def login(request):
     if request.method == 'POST':
         correo = request.POST.get('correo')
         password = request.POST.get('contrasena')
-        usuario = Usuarios.objects.filter(email=correo, contrasena=password).first()
+        usuario = Usuario.objects.filter(email=correo, contrasena=password).first()
         if usuario:
-            # Autenticación correcta: redirige o guarda la sesión
-            return redirect('alguna_vista')
+            return redirect(inicio)
         else:
-            # Muestra un error en el formulario
             return render(request, 'login.html', {'error': 'Credenciales incorrectas'})
     return render(request, 'login.html')
 
@@ -21,7 +19,7 @@ def registro(request):
         form = RegistroForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
+            return redirect('usuario_creado')
     else:
         form = RegistroForm()
 
@@ -32,3 +30,7 @@ def recuperar_contraseña(request):
 
 def usuario_creado(request):
     return render(request,'usuario_creado.html')
+
+def inicio(request):
+    productos = Producto.objects.all()
+    return render(request,'inicio.html', {'productos': productos})
